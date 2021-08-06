@@ -78,7 +78,7 @@ func MakeVM(opts Opts) *jsonnet.VM {
 // result in JSON form. It disregards opts.ImportPaths in favor of automatically
 // resolving these according to the specified file.
 func EvaluateFile(jsonnetFile string, opts Opts) (string, error) {
-	jpath, _, _, err := jpath.Resolve(jsonnetFile)
+	jpath, _, _, err := jpath.Resolve(jsonnetFile, false)
 	if err != nil {
 		return "", errors.Wrap(err, "resolving import paths")
 	}
@@ -91,7 +91,7 @@ func EvaluateFile(jsonnetFile string, opts Opts) (string, error) {
 // Evaluate renders the given jsonnet into a string
 // TODO: don't resolve jpath, this is ANONYMOUS AFTER ALL
 func Evaluate(path, data string, opts Opts) (string, error) {
-	jpath, _, _, err := jpath.Resolve(path)
+	jpath, _, _, err := jpath.Resolve(path, false)
 	if err != nil {
 		return "", errors.Wrap(err, "resolving import paths")
 	}
